@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <T_USER USER_ID="1000" USER_LOGIN="test1" USER_PASS="test" USER_ENABLED="1" />
+
+    <T_USER USER_ID="1001" USER_LOGIN="test2" USER_PASS="test" USER_ENABLED="1" />
+
+    <T_USER USER_ID="1002" USER_LOGIN="test3" USER_PASS="test" USER_ENABLED="0" />
+
+</dataset>
