@@ -9,18 +9,13 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.mock.http.MockHttpOutputMessage;
-import org.springframework.mock.web.MockServletContext;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.web.WebAppConfiguration;
-import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.io.IOException;
 
@@ -39,7 +34,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 @RunWith(SpringJUnit4ClassRunner.class)
 public class EntryControllerTest extends AbstractControllerTest {
 
-    static final String PATH_API = "/sbp/dev/user";
+    static final String PATH_API = "/dev/user";
 
     @InjectMocks
     private EntryController entryController;
@@ -67,7 +62,7 @@ public class EntryControllerTest extends AbstractControllerTest {
         verify(userService, times(1)).getAllUsers();
         verifyNoMoreInteractions(userService);
         assertEquals(HttpStatus.SC_OK, status);
-        assertEquals("[{\"status\":\"SUCCESS\",\"statusMessage\":null,\"username\":\"Test@test.com\"}]", contentAsString);
+        assertEquals("[{\"username\":\"userSuccess@test.com\",\"password\":\"password\",\"enabled\":true}]", contentAsString);
     }
 
     @Test
@@ -86,8 +81,6 @@ public class EntryControllerTest extends AbstractControllerTest {
         verifyNoMoreInteractions(userService);
         assertEquals(HttpStatus.SC_OK, status);
     }
-
-
 
     private UserModel createUserModel() {
         UserModel testModel = new UserModel();
