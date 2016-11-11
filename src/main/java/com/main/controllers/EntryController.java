@@ -64,7 +64,7 @@ public class EntryController {
      * @httpMethod POST
      * @httpUrl http://{host}:{port}/sbp/dev/user
      * @httpUrlExample http://localhost:8080/sbp/dev/user
-     * @requestBodyExample {"username" : "Maya", "password" : "password", "enabled" : false}
+     * @requestBodyExample {"username" : "Maya007", "password" : "password", "enabled" : false}
      */
     @RequestMapping(value = "/user", method = RequestMethod.POST)
     public ResponseEntity<Void> saveUser(@RequestBody @Valid final UserModel userModel) {

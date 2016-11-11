@@ -19,11 +19,11 @@ public class UserModel {
 
     @NotNull(message = USERNAME_NOT_NULL)
     @Size(min=6, max=50, message = DATA_NOT_VALID)
-    String username;
+    private String username;
 
     @NotNull(message = PASSWORD_NOT_NULL)
     @Size(min=6, max=50, message = DATA_NOT_VALID)
-    String password;
+    private String password;
 
     boolean enabled;
 }
