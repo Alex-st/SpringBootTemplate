@@ -1,5 +1,6 @@
 package com.main.controllers;
 
+import com.main.exceptions.UserRuntimeException;
 import com.main.model.UserModel;
 import com.main.services.EntryService;
 import org.apache.http.HttpStatus;
@@ -80,6 +81,19 @@ public class EntryControllerTest extends AbstractControllerTest {
         verify(userService, times(1)).saveUser(any(UserModel.class));
         verifyNoMoreInteractions(userService);
         assertEquals(HttpStatus.SC_OK, status);
+    }
+
+    @Test
+    public void shouldNotFindUser() throws Exception {
+        when(userService.getAllUsers()).thenThrow(new UserRuntimeException("User userSuccess@test.com not found!"));
+
+        MvcResult result = mockMvc.perform(
+                MockMvcRequestBuilders.get(PATH_API).content("application/json")).andReturn();
+
+        int status = result.getResponse().getStatus();
+        verify(userService, times(1)).getAllUsers();
+        verifyNoMoreInteractions(userService);
+        assertEquals(HttpStatus.SC_NOT_FOUND, status);
     }
 
     private UserModel createUserModel() {
