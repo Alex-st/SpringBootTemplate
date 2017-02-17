@@ -1,5 +1,6 @@
 package com.main.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -19,11 +20,14 @@ public class UserModel {
 
     @NotNull(message = USERNAME_NOT_NULL)
     @Size(min=6, max=50, message = DATA_NOT_VALID)
+    @JsonProperty("username")
     private String username;
 
     @NotNull(message = PASSWORD_NOT_NULL)
     @Size(min=6, max=50, message = DATA_NOT_VALID)
+    @JsonProperty("password")
     private String password;
 
+    @JsonProperty("enabled")
     boolean enabled;
 }
