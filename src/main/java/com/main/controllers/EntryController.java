@@ -56,7 +56,7 @@ public class EntryController {
      */
     @RequestMapping(value = "/user", method = RequestMethod.GET)
     public ResponseEntity<List<UserModel>> getAllUsers() {
-        LOG.info("GetAllUsers Controller entry point");
+        LOG.debug("GetAllUsers Controller entry point");
         return new ResponseEntity<>(entryService.getAllUsers(), HttpStatus.OK);
     }
 
