@@ -5,9 +5,11 @@ import com.main.model.UserModel;
 import com.main.services.EntryService;
 import org.apache.log4j.Level;
 import org.apache.log4j.LogManager;
+import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -15,10 +17,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.inject.Inject;
 import javax.validation.Valid;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 /**
@@ -72,6 +76,14 @@ public class EntryController {
         entryService.saveUser(userModel);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+
+    @RequestMapping(value = "/image", produces = MediaType.IMAGE_JPEG_VALUE)
+    public @ResponseBody
+    byte[] getImageWithMediaType() throws IOException {
+        final InputStream in = getClass().getResourceAsStream("/images/hello.jpg");
+        return IOUtils.toByteArray(in);
+    }
+
 
     /**
      * @description Method to change log level, logName could have only lowercase letters name
