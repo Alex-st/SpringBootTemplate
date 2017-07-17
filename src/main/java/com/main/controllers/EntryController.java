@@ -103,6 +103,11 @@ public class EntryController {
         return new ResponseEntity<>("Set logger " + logger.getName() + " from " + prevLevel + " to " + logger.getLevel(), HttpStatus.OK);
     }
 
+    /*
+        Handle exceptions of specific class only in this controller
+        for all controllers we need ot use separate class annotated
+        by @RestControllerAdvice / @ControllerAdvice with
+     */
     @ExceptionHandler({UserRuntimeException.class})
     ResponseEntity<String> handleNotFoundRequests(Exception ex) throws IOException {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
