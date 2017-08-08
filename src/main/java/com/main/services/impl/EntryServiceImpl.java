@@ -22,6 +22,7 @@ public class EntryServiceImpl implements EntryService {
     @Inject
     private UserRepository userRepository;
 
+    @Override
     public UserModel getUserModelByUsername(String username) {
 
         UserEntity userEntity = userRepository.findOneByLogin(username);
@@ -31,11 +32,13 @@ public class EntryServiceImpl implements EntryService {
         return UserEntityConvertor.convertToModel(userEntity);
     }
 
+    @Override
     public void saveUser(UserModel userModel) {
         UserEntity userEntity = UserEntityConvertor.convertToEntity(userModel);
         userRepository.save(userEntity);
     }
 
+    @Override
     public List<UserModel> getAllUsers() {
         List<UserEntity> userEntities = userRepository.findAll();
         return userEntities.stream()

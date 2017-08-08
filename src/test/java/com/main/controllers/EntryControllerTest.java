@@ -4,17 +4,17 @@ import com.main.exceptions.UserRuntimeException;
 import com.main.model.UserModel;
 import com.main.services.EntryService;
 import org.apache.http.HttpStatus;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.mock.http.MockHttpOutputMessage;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
@@ -33,23 +33,18 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
  * Created by Oleksandr on 10/17/2016.
  */
 @RunWith(SpringRunner.class)
-public class EntryControllerTest extends AbstractControllerTest {
+@WebMvcTest(EntryController.class)
+public class EntryControllerTest {
 
     static final String PATH_API = "/dev/user";
 
-    @InjectMocks
-    private EntryController entryController;
+    @Autowired
+    private MockMvc mockMvc;
 
-    @Mock
+    @MockBean
     private EntryService userService;
 
     private HttpMessageConverter mappingJackson2HttpMessageConverter = new MappingJackson2HttpMessageConverter();
-
-    @Before
-    public void setUp() {
-        MockitoAnnotations.initMocks(this);
-        super.initBaseController(entryController);
-    }
 
     @Test
     public void shouldReturnAllUsersSuccess() throws Exception {
