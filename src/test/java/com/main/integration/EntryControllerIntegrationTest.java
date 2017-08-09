@@ -4,7 +4,6 @@ import com.main.model.UserModel;
 import com.main.persistence.entities.UserEntity;
 import com.main.persistence.repositories.UserRepository;
 import org.apache.http.HttpStatus;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,20 +45,18 @@ public class EntryControllerIntegrationTest {
         assertThat(response.getStatusCode().value(), is(HttpStatus.SC_OK));
         assertThat(response.getHeaders().getContentType(), is(MediaType.APPLICATION_JSON_UTF8));
         assertThat(response.getBody()[0].toString(), containsString("TestLogin"));
-
     }
 
     @Test
-    @Ignore
     public void failWith404WhenUserNotFound() {
 
         when(userRepository.findOneByLogin(any(String.class))).thenReturn(null);
 
-        ResponseEntity<UserModel> response = template.getForEntity("/dev/user/test", UserModel.class);
+        ResponseEntity<String> response = template.getForEntity("/dev/user/test", String.class);
 
         assertThat(response.getStatusCode().value(), is(HttpStatus.SC_NOT_FOUND));
-        assertThat(response.getHeaders().getContentType(), is(MediaType.APPLICATION_JSON_UTF8));
-
+        assertThat(response.getHeaders().getContentType().toString(), containsString(MediaType.TEXT_PLAIN_VALUE));
+        assertThat(response.getBody(), containsString("User test not found!"));
     }
 
     private UserEntity createUserEntity() {
